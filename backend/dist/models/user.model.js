@@ -1,0 +1,56 @@
+import mongoose, { Schema } from "mongoose";
+const SkillSubSchema = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    level: {
+        type: Number
+    },
+    verified: {
+        type: Boolean,
+        default: false
+    },
+    endorsements: [{ type: Schema.Types.ObjectId, ref: 'User' }]
+});
+const UserSchema = new Schema({
+    first_name: {
+        type: String,
+        required: true
+    },
+    last_name: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        index: true
+    },
+    password: {
+        type: String,
+        required: true,
+        minlength: 6,
+    },
+    bio: { type: String },
+    avatarUrl: { type: String },
+    location: {
+        type: {
+            type: String,
+            enum: ['Point'],
+            default: 'Point'
+        },
+        coordinates: {
+            type: [Number],
+            default: [0, 0]
+        } // [lng, lat]
+    },
+    skills: [SkillSubSchema],
+    reputation: { type: Number, default: 0 }
+});
+// create geospatial index for proximity queries
+UserSchema.index({ location: '2dsphere' });
+const User = mongoose.model("User", UserSchema);
+export default User;
+//# sourceMappingURL=user.model.js.map
