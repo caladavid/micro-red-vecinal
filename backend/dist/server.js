@@ -36,7 +36,7 @@ console.log(`Ruta de los archivos estáticos del frontend: ${angularDist}`);
 app.use(express.static(angularDist));
 // fallback para todas las rutas que no sean API
 app.all('/{*any}', (req, res) => {
-    res.sendFile(path.join(angularDist, 'index.csr.html'));
+    res.sendFile(path.join(angularDist, 'index.html'));
 });
 app.listen(PORT, () => {
     connectToMongoDB();
