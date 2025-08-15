@@ -42,9 +42,10 @@ app.use('/api/reviews', reviewRoutes);
 console.log(`__dirname (ruta actual del script): ${__dirname}`);
 console.log(`projectRoot (raíz del proyecto): ${projectRoot}`);
 
-const angularDist = path.join(__dirname, 'frontend', 'dist', 'micro-red-vecinal', "browser");
+const angularDist = path.join(__dirname, 'frontend', 'dist', 'micro-red-vecinal');
 console.log(`Ruta de los archivos estáticos del frontend: ${angularDist}`);
 app.use(express.static(angularDist));
+
 
 // fallback para todas las rutas que no sean API
 app.all('/{*any}', (req, res) => {
