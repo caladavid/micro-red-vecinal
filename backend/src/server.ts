@@ -48,9 +48,7 @@ app.use(express.static(angularDist));
 
 // fallback para todas las rutas que no sean API
 app.all('/{*any}', (req, res) => {
-  if (!req.path.startsWith('/api')) {
-        res.sendFile(path.join(angularDist, 'index.html'));
-    }
+  res.sendFile(path.join(angularDist, 'index.html'));
 });
 
 app.listen(PORT, () => {
