@@ -15,6 +15,7 @@ const connectToMongoDB = async () => {
             console.log("Error desconocido al conectar a MongoDB:", error);
         }
     }
-};
+}; 
+
 
 export default connectToMongoDB;
