@@ -1,6 +1,7 @@
 import type { Request, Response, NextFunction } from 'express';
 import Post from '../models/post.model.js';
 import { customError } from '../utils/customError.js';
+import mongoose from 'mongoose';
 
 // Obtener todos los posts
 export const getPosts = async (req: Request, res: Response) => {
@@ -16,47 +17,54 @@ export const getPosts = async (req: Request, res: Response) => {
 // Obtener post por ID
 export const getPostById = async (req: Request, res: Response) => {
     try {
-        const postId = req.params.id;
-        const post = await Post.findById(postId);
-        if (!post) return res.status(404).json({ error: 'Post no encontrado' });
+        const { id } = req.params;
 
-        res.status(200).json({ message: 'Post obtenido exitosamente', post });
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ error: "ID inválido" });
+        }
+
+        const post = await Post.findById(id);
+        if (!post) {
+            return res.status(404).json({ error: "Post no encontrado" });
+        }
+
+        res.status(200).json({ message: "Post obtenido exitosamente", post });
     } catch (error) {
-        console.error('Error al obtener post:', error);
-        res.status(500).json({ error: 'Error al obtener post' });
+        console.error("Error al obtener post:", error);
+        res.status(500).json({ error: "Error al obtener post" });
     }
 };
 
 // Crear post (usuario autenticado)
 export const createPost = async (req: Request, res: Response) => {
-  try {
-    if (!req.user) {
-      return res.status(401).json({ error: 'Usuario no autenticado' });
+    try {
+        if (!req.user) {
+            return res.status(401).json({ error: 'Usuario no autenticado' });
+        }
+
+        const { type, title, description, category, tags, location, status } = req.body;
+
+        const newPost = new Post({
+            user: req.user._id, // Se asigna automáticamente el usuario autenticado
+            type,
+            title,
+            description,
+            category,
+            tags,
+            location,
+            status: "open"
+        });
+
+        await newPost.save();
+
+        res.status(201).json({
+            message: 'Post creado exitosamente',
+            post: newPost
+        });
+    } catch (error) {
+        console.error('Error al crear post:', error);
+        res.status(500).json({ error: 'Error al crear post' });
     }
-
-    const { type, title, description, category, tags, location, status } = req.body;
-
-    const newPost = new Post({
-      user: req.user._id, // Se asigna automáticamente el usuario autenticado
-      type,
-      title,
-      description,
-      category,
-      tags,
-      location,
-      status
-    });
-
-    await newPost.save();
-
-    res.status(201).json({
-      message: 'Post creado exitosamente',
-      post: newPost
-    });
-  } catch (error) {
-    console.error('Error al crear post:', error);
-    res.status(500).json({ error: 'Error al crear post' });
-  }
 };
 
 // Actualizar post

@@ -6,13 +6,7 @@
   "scripts": {
     "dev": "nodemon --exec tsx backend/src/server.ts",
     "start": "node backend/dist/server.js",
-    "build": "npx tsc -p backend/tsconfig.json",
-    "dev2": "npx tsc",
-    "server": "nodemon backend/src/server.js",
-    "server-test": "nodemon backend/src/server.ts",
-    "start2": "node backend/dist/server.js",
-    "start-test": "node backend/dist/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
   },
   "type": "module",
   "keywords": [],

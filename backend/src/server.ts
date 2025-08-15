@@ -16,11 +16,11 @@ import reviewRoutes from './routes/review.routes.js'
 
 const app = express();
 
+dotenv.config()
 const PORT = process.env.PORT || 5000;
 
 const __dirname = path.resolve()
 
-dotenv.config()
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
