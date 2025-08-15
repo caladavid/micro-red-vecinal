@@ -14,12 +14,12 @@ import authRoutes from './routes/auth.routes.js'
 import postRoutes from './routes/post.routes.js'
 import reviewRoutes from './routes/review.routes.js'
 
-const app = express();
 
 dotenv.config()
+const app = express();
 const PORT = process.env.PORT || 5000;
-
 const __dirname = path.resolve()
+
 
 app.use(helmet());
 app.use(cors());
@@ -33,11 +33,12 @@ app.use('/api/posts', postRoutes);
 app.use('/api/reviews', reviewRoutes);
 
 
-app.use(express.static(path.join(__dirname, "/frontend/dist")))
+const angularDist = path.join(__dirname, 'frontend', 'dist', 'micro-red-vecinal');
+app.use(express.static(angularDist));
 
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"))
-})
+app.get('*', (req, res) => {
+  res.sendFile(path.join(angularDist, 'index.html'));
+});
 
 app.listen(PORT, () => {
   connectToMongoDB();
