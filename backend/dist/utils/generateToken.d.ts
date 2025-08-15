@@ -1,2 +1,5 @@
+import type { Response } from 'express';
+import { Types } from 'mongoose';
+declare const generateTokenAndSetCookie: (userId: Types.ObjectId, res: Response) => string;
 export default generateTokenAndSetCookie;
-declare function generateTokenAndSetCookie(userId: any, res: any): any;
+//# sourceMappingURL=generateToken.d.ts.map

@@ -1,8 +1,9 @@
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Document, Schema, Types } from "mongoose";
 export interface IReview extends Document {
     reviewer: Schema.Types.ObjectId;
     reviewee: Schema.Types.ObjectId;
-    post?: Schema.Types.ObjectId;
+    post?: Types.ObjectId;
+    user: Types.ObjectId;
     rating: number;
     comment?: string;
     createdAt: Date;
@@ -13,3 +14,4 @@ declare const Review: mongoose.Model<IReview, {}, {}, {}, mongoose.Document<unkn
     __v: number;
 }, any>;
 export default Review;
+//# sourceMappingURL=review.model.d.ts.map

@@ -20,3 +20,4 @@ declare const Post: mongoose.Model<IPost, {}, {}, {}, mongoose.Document<unknown,
     __v: number;
 }, any>;
 export default Post;
+//# sourceMappingURL=post.model.d.ts.map

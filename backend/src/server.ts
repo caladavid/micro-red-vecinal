@@ -32,11 +32,13 @@ app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/reviews', reviewRoutes);
 
+console.log(`__dirname (ruta actual del script): ${__dirname}`);
 
 const angularDist = path.join(__dirname, 'frontend', 'dist', 'micro-red-vecinal');
 app.use(express.static(angularDist));
 
-app.get('*', (req, res) => {
+// fallback para todas las rutas que no sean API
+app.all('/{*any}', (req, res) => {
   res.sendFile(path.join(angularDist, 'index.html'));
 });
 

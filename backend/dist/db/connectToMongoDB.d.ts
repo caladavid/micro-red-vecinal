@@ -1,2 +1,3 @@
+declare const connectToMongoDB: () => Promise<void>;
 export default connectToMongoDB;
-declare function connectToMongoDB(): Promise<void>;
+//# sourceMappingURL=connectToMongoDB.d.ts.map

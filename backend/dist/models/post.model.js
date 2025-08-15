@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Document, Schema, Types } from "mongoose";
 const PostSchema = new Schema({
     user: {
         type: Schema.Types.ObjectId,

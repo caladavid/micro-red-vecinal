@@ -1,4 +1,3 @@
-import { Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { Types } from 'mongoose';
 const generateTokenAndSetCookie = (userId, res) => {

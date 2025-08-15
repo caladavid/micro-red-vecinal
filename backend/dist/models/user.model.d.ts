@@ -19,6 +19,7 @@ export interface IUser extends Document {
     createdAt: Date;
     updatedAt: Date;
     reputation?: number;
+    comparePassword(candidatePassword: string): Promise<boolean>;
 }
 declare const User: mongoose.Model<IUser, {}, {}, {}, mongoose.Document<unknown, {}, IUser, {}, {}> & IUser & Required<{
     _id: unknown;
@@ -26,3 +27,4 @@ declare const User: mongoose.Model<IUser, {}, {}, {}, mongoose.Document<unknown,
     __v: number;
 }, any>;
 export default User;
+//# sourceMappingURL=user.model.d.ts.map
