@@ -61,12 +61,14 @@ export class AuthService {
   }
 
   saveToken(token: string, user: User): void {
+    if (typeof window === 'undefined') return;
     localStorage.setItem(this.TOKEN_KEY, token);
     localStorage.setItem(this.USER_KEY, JSON.stringify(user));
   }
 
 
   getToken(): string | null {
+    if (typeof window === 'undefined') return null;
     return localStorage.getItem(this.TOKEN_KEY);
   }
 
@@ -120,8 +122,10 @@ export class AuthService {
 
 
   logout() {
-    localStorage.removeItem(this.TOKEN_KEY);
-    localStorage.removeItem(this.USER_KEY);
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem(this.TOKEN_KEY);
+      localStorage.removeItem(this.USER_KEY);
+    }
     this.resetAuthState();
     this.router.navigateByUrl('/home');
   }
