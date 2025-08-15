@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon --exec tsx backend/src/server.ts",
     "start": "node backend/dist/server.js",
-    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend && npx tsc -p backend/tsconfig.json"
   },
   "type": "module",
   "keywords": [],
