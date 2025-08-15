@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,4 +13,6 @@ export class NavbarComponent {
     this.searchTerm = value;
     console.log('Buscando:', value);
   }
+  
+  constructor(public authService: AuthService) { }
 }

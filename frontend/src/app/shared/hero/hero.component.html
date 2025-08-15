@@ -5,14 +5,14 @@
     </h1>
 
     <div class="mt-8 flex items-center justify-center gap-4">
-      <button (click)="ofrecer.emit()"
-              class="bg-teal-500 hover:bg-teal-400 text-black font-semibold rounded-xl px-6 py-3 transition">
+      <a routerLink="/posts/create/offer"
+        class="bg-teal-500 hover:bg-teal-400 text-black font-semibold rounded-xl px-6 py-3 transition">
         Ofrecer ayuda
-      </button>
-      <button (click)="solicitar.emit()"
-              class="border border-teal-500/60 text-teal-300 hover:bg-teal-500/10 rounded-xl px-6 py-3 transition">
+      </a>
+      <a routerLink="/posts/create/request"
+        class="border border-teal-500/60 text-teal-300 hover:bg-teal-500/10 rounded-xl px-6 py-3 transition">
         Solicitar ayuda
-      </button>
+      </a>
     </div>
   </div>
 </section>

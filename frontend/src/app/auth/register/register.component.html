@@ -1,0 +1,14 @@
+<div class="w-1/2 p-8 mx-auto">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <input formControlName="first_name" placeholder="First Name">
+    <input formControlName="last_name" placeholder="Last Name">
+    <input formControlName="email" placeholder="Email">
+    <input formControlName="password" type="password" placeholder="Password">
+    <input formControlName="bio" placeholder="Bio">
+    <input formControlName="avatarUrl" placeholder="Avatar URL">
+    <input formControlName="location" placeholder="Location">
+    <button type="submit">Register</button>
+    <p *ngIf="errorMessage">{{ errorMessage }}</p>
+  </form>
+
+</div>

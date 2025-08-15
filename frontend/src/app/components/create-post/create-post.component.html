@@ -1,0 +1,69 @@
+<div class="bg-white rounded-lg shadow-lg p-6 mb-4 border border-gray-200 text-gray-700">
+
+  <div class="flex justify-between items-center border-b border-gray-300 pb-4 mb-4 cursor-pointer"
+    (click)="toggleCollapse()">
+    <div class="flex items-center">
+      <h3 class="text-xl font-semibold text-gray-800">Su nuevo tema de debate</h3>
+    </div>
+    <span class="text-blue-500 font-medium">
+      {{ isCollapsed ? 'Expandir todo' : 'Contraer todo' }}
+    </span>
+  </div>
+
+  <div *ngIf="!isCollapsed">
+    <form (ngSubmit)="onSubmit()">
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Tipo de post</label>
+        <div class="mt-2 flex">
+          <label class="inline-flex items-center mr-6" [class.cursor-not-allowed]="isTypeFixed">
+            <input type="radio" name="type" value="offer" [(ngModel)]="postData.type" [disabled]="isTypeFixed">
+            <span class="ml-2">Ofrecer ayuda</span>
+          </label>
+          <label class="inline-flex items-center" [class.cursor-not-allowed]="isTypeFixed">
+            <input type="radio" name="type" value="request" [(ngModel)]="postData.type" [disabled]="isTypeFixed">
+            <span class="ml-2">Solicitar ayuda</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <div class="flex items-center">
+          <label for="title" class="block text-sm font-medium text-gray-700">Asunto</label>
+          <i *ngIf="asuntoInvalido" class="fas fa-exclamation-circle text-red-500 ml-2" title="Asunto es requerido"></i>
+        </div>
+        <input type="text" id="title" name="title" [(ngModel)]="postData.title" required
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+      </div>
+
+      <div class="mb-4">
+        <div class="flex items-center">
+          <label for="description" class="block text-sm font-medium text-gray-700">Mensaje</label>
+          <i *ngIf="mensajeInvalido" class="fas fa-exclamation-circle text-red-500 ml-2"
+            title="Mensaje es requerido"></i>
+        </div>
+        <textarea id="description" name="description" [(ngModel)]="postData.description" required rows="4"
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"></textarea>
+      </div>
+
+      <div class="mb-4">
+        <label for="category" class="block text-sm font-medium text-gray-700">Categoría</label>
+        <input type="text" id="category" name="category" [(ngModel)]="postData.category"
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+      </div>
+
+      <div class="mb-4">
+        <label for="tags" class="block text-sm font-medium text-gray-700">Etiquetas (separadas por comas)</label>
+        <input type="text" id="tags" name="tags" [(ngModel)]="tagsInput"
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+      </div>
+
+      <div class="flex justify-end mt-4">
+        <button type="submit"
+          class="bg-blue-600 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-300">
+          Crear Post
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

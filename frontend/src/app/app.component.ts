@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './shared/navbar/navbar.component';
-import { HeroComponent } from './shared/hero/hero.component';
-import { CategoriesSectionComponent } from './shared/categories-section/categories-section.component';
-import { FeedSectionComponent } from './shared/feed-section/feed-section.component';
-import { MapCardComponent } from './shared/map/map.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { FormsModule } from '@angular/forms';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -13,15 +11,14 @@ import { FooterComponent } from './shared/footer/footer.component';
   imports: [
     CommonModule,
     NavbarComponent,
-    HeroComponent,
-    CategoriesSectionComponent,
-    FeedSectionComponent,
-    MapCardComponent, // aquí el mismo nombre que importaste
-    FooterComponent
+// aquí el mismo nombre que importaste
+    FooterComponent,
+    FormsModule,
+    RouterOutlet,
+    
   ],
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  openOfrecer() { console.log('Abrir popup: Ofrecer ayuda'); }
-  openSolicitar() { console.log('Abrir popup: Solicitar ayuda'); }
+
 }

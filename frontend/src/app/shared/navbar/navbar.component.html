@@ -7,20 +7,21 @@
     <div class="flex-1">
       <label class="relative block">
         <span class="absolute inset-y-0 left-3 flex items-center pointer-events-none">🔎</span>
-        <input
-          type="text"
-          placeholder="Buscar .."
-          (input)="onSearch($any($event.target).value)"
-          class="w-full bg-[#111418] text-white/90 placeholder-white/40 rounded-xl pl-9 pr-3 py-2.5 outline-none
-                 ring-1 ring-white/10 focus:ring-2 focus:ring-teal-400/60 transition"
-        />
+        <input type="text" placeholder="Buscar .." (input)="onSearch($any($event.target).value)" class="w-full bg-[#111418] text-white/90 placeholder-white/40 rounded-xl pl-9 pr-3 py-2.5 outline-none
+                 ring-1 ring-white/10 focus:ring-2 focus:ring-teal-400/60 transition" />
       </label>
     </div>
-
+    @if(authService.isAuthenticated()){
     <!-- Botones -->
+    <button class="py-4 px-2 cursor-pointer rounded-md bg-red-600 hover:bg-red-700 text-white" (click)="authService.logout()">
+      Cerrar sesión
+    </button>
+
+    } @else {
     <div class="flex items-center gap-3 text-white/80">
       <button class="p-2 rounded-xl hover:bg-white/5 transition" aria-label="notificaciones">🔔</button>
       <button class="p-2 rounded-xl hover:bg-white/5 transition" aria-label="perfil">👤</button>
     </div>
+    }
   </div>
 </header>
