@@ -1,8 +1,9 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 /* import { environment } from '../../../environments/environment'; */
 import { BehaviorSubject, catchError, map, Observable, of, tap, throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
 
 export interface User {
   _id: string;
@@ -35,16 +36,22 @@ export interface LoginData {
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly API_URL = `http://localhost:8000/api/auth`;
-  /*   private API_URL = `${environment.apiUrl}/auth`; */
+  private readonly API_URL = `/api/auth`;
+  /* private readonly API_URL = `http://localhost:8000/api/auth`; */
   private readonly TOKEN_KEY = 'token';
   private readonly USER_KEY = 'currentUser'
   private currentUserSubject: BehaviorSubject<User | null>;
   public currentUser: Observable<User | null>;
+  private isBrowser: boolean;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
     let user: User | null = null;
-    if (typeof window !== 'undefined') { // ✅ Solo en navegador
+    if (this.isBrowser) { // <-- Use the flag before accessing localStorage
       const storedUser = localStorage.getItem(this.USER_KEY);
       if (storedUser !== null && storedUser !== 'undefined') {
         try {
@@ -61,19 +68,25 @@ export class AuthService {
   }
 
   saveToken(token: string, user: User): void {
-    if (typeof window === 'undefined') return;
-    localStorage.setItem(this.TOKEN_KEY, token);
-    localStorage.setItem(this.USER_KEY, JSON.stringify(user));
+    if (this.isBrowser) {
+      localStorage.setItem(this.TOKEN_KEY, token);
+      localStorage.setItem(this.USER_KEY, JSON.stringify(user));
+    }
   }
 
 
   getToken(): string | null {
-    if (typeof window === 'undefined') return null;
-    return localStorage.getItem(this.TOKEN_KEY);
+    if (this.isBrowser) {
+      return localStorage.getItem(this.TOKEN_KEY);
+    }
+    return null;
   }
 
   isAuthenticated(): boolean {
-    return !!this.getToken();  // Comprueba si hay un token en el almacenamiento local
+    if (this.isBrowser) { // <-- Comprobación de la plataforma
+      return !!this.getToken();
+    }
+    return false;
   }
 
   private resetAuthState(): void {
@@ -122,12 +135,12 @@ export class AuthService {
 
 
   logout() {
-    if (typeof window !== 'undefined') {
+    if (this.isBrowser) {
       localStorage.removeItem(this.TOKEN_KEY);
       localStorage.removeItem(this.USER_KEY);
     }
     this.resetAuthState();
-    this.router.navigateByUrl('/home');
+    this.router.navigateByUrl('/login');
   }
   /*   logout() {
       localStorage.removeItem(this.TOKEN_KEY);
