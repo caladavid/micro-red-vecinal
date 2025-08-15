@@ -21,11 +21,6 @@ const PORT = process.env.PORT || 5000;
 
 const __dirname = path.resolve()
 
-
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
-
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
