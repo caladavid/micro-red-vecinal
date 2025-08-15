@@ -7,6 +7,8 @@ import cors from 'cors';
 import path from "path"
 import cookieParser from "cookie-parser";
 
+import { fileURLToPath } from "url"; // Importa fileURLToPath
+
 import connectToMongoDB from './db/connectToMongoDB.js';
 
 import userRoutes from './routes/users.routes.js'
@@ -19,6 +21,8 @@ dotenv.config()
 const app = express();
 const PORT = process.env.PORT || 5000;
 const __dirname = path.resolve()
+const __filename = fileURLToPath(import.meta.url);
+const projectRoot = path.resolve(__dirname, '..')
 
 
 app.use(helmet());
@@ -36,13 +40,17 @@ app.use('/api/posts', postRoutes);
 app.use('/api/reviews', reviewRoutes);
 
 console.log(`__dirname (ruta actual del script): ${__dirname}`);
+console.log(`projectRoot (raíz del proyecto): ${projectRoot}`);
 
-const angularDist = path.join(__dirname, 'frontend', 'dist', 'micro-red-vecinal');
+const angularDist = path.join(__dirname, 'frontend', 'dist', 'micro-red-vecinal', "browser");
+console.log(`Ruta de los archivos estáticos del frontend: ${angularDist}`);
 app.use(express.static(angularDist));
 
 // fallback para todas las rutas que no sean API
 app.all('/{*any}', (req, res) => {
-  res.sendFile(path.join(angularDist, 'index.html'));
+  if (!req.path.startsWith('/api')) {
+        res.sendFile(path.join(angularDist, 'index.html'));
+    }
 });
 
 app.listen(PORT, () => {
