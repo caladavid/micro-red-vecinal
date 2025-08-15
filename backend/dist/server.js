@@ -15,7 +15,10 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const __dirname = path.resolve();
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:4200', // <-- URL exacta de tu frontend
+    credentials: true, // <-- permite cookies
+}));
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(cookieParser());
