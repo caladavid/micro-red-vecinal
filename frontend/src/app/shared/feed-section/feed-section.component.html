@@ -1,0 +1,12 @@
+<section class="px-4 sm:px-0">
+  <div class="flex items-center justify-between mb-3">
+    <h2 class="text-white text-xl font-semibold">Feed de publicaciones</h2>
+    <a class="text-teal-300 text-sm hover:underline flex items-center gap-1" href="#">
+      Ver en el mapa <span>›</span>
+    </a>
+  </div>
+
+  <div class="space-y-3">
+    <app-post-card *ngFor="let p of feed.filtered()" [post]="p"></app-post-card>
+  </div>
+</section>

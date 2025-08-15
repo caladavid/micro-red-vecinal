@@ -1,0 +1,13 @@
+<section class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+  <h2 class="text-white text-xl font-semibold mb-5">Categorías destacadas</h2>
+
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+    <div *ngFor="let c of categories">
+      <app-category-card
+        [data]="c"
+        [active]="isActive(c.key)"
+        (click)="select(c.key)">
+      </app-category-card>
+    </div>
+  </div>
+</section>

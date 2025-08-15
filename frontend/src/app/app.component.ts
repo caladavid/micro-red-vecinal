@@ -1,14 +1,27 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { FooterComponent } from "./shared/footer/footer.component";
-import { HeaderComponent } from "./shared/header/header.component";
+import { CommonModule } from '@angular/common';
+import { NavbarComponent } from './shared/navbar/navbar.component';
+import { HeroComponent } from './shared/hero/hero.component';
+import { CategoriesSectionComponent } from './shared/categories-section/categories-section.component';
+import { FeedSectionComponent } from './shared/feed-section/feed-section.component';
+import { MapCardComponent } from './shared/map/map.component';
+import { FooterComponent } from './shared/footer/footer.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, FooterComponent, HeaderComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  standalone: true,
+  imports: [
+    CommonModule,
+    NavbarComponent,
+    HeroComponent,
+    CategoriesSectionComponent,
+    FeedSectionComponent,
+    MapCardComponent, // aquí el mismo nombre que importaste
+    FooterComponent
+  ],
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
-  title = 'micro-red-vecinal';
+  openOfrecer() { console.log('Abrir popup: Ofrecer ayuda'); }
+  openSolicitar() { console.log('Abrir popup: Solicitar ayuda'); }
 }

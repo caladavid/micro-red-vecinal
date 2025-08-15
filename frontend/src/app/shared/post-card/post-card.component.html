@@ -1,0 +1,12 @@
+<article class="bg-[#12161b] rounded-2xl ring-1 ring-white/5 p-4 text-white/90 flex gap-3 items-start">
+  <img [src]="post.author.avatar || 'assets/avatars/default.png'"
+       [alt]="post.author.name"
+       class="w-10 h-10 rounded-full object-cover" />
+  <div class="flex-1 min-w-0">
+    <h3 class="font-semibold truncate">{{ post.title }}</h3>
+    <p class="text-sm text-white/60">{{ post.excerpt }}</p>
+  </div>
+  <span class="self-start text-xs px-2 py-1 rounded-lg bg-teal-500/15 text-teal-300 ring-1 ring-teal-400/30">
+    {{ post.category | titlecase }}
+  </span>
+</article>

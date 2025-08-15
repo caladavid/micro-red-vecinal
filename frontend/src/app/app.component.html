@@ -1,7 +1,18 @@
-<div class="flex flex-col min-h-screen">
-    <app-header></app-header>
-    <div class="flex-grow sm:mx-4 xl:mx-8">
-        <router-outlet />
+<div class="min-h-screen bg-[#0b0f13] text-white">
+  <app-navbar></app-navbar>
+
+  <app-hero (ofrecer)="openOfrecer()" (solicitar)="openSolicitar()"></app-hero>
+
+  <app-categories-section></app-categories-section>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 py-6 grid md:grid-cols-5 gap-6">
+    <div class="md:col-span-3">
+      <app-feed-section></app-feed-section>
     </div>
-    <app-footer></app-footer>
+    <div class="md:col-span-2">
+      <app-map-card></app-map-card>
+    </div>
+  </section>
+
+  <app-footer></app-footer>
 </div>
