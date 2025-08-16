@@ -1,41 +1,80 @@
-<div class="form-section w-1/2 p-8 mx-auto">
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" aria-labelledby="login-form-title">
-    <h2 id="login-form-title" class="text-2xl font-bold mb-6">Login</h2>
+<div class="min-h-screen flex items-center justify-center bg-[#0b0d0f] px-4">
+  <div class="w-full max-w-md bg-[#111418] rounded-xl shadow-lg p-8">
+    <!-- Título -->
+    <h2 id="login-form-title" class="text-3xl font-bold text-center text-teal-500 mb-8">Iniciar Sesión</h2>
 
-    <!-- Campo de Email -->
-    <div class="mb-4">
-      <label for="email" class="block font-medium">Email:</label>
-      <input id="email" type="email" formControlName="email" class="w-full px-4 py-2 border rounded-md"
-        aria-describedby="email-error"
-        [class.invalid]="loginForm.controls['email'].invalid && loginForm.controls['email'].touched" />
-      <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched">
-        <span id="email-error" class="error text-red-500 text-sm">Email inválido</span>
+    <!-- Formulario -->
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" aria-labelledby="login-form-title" class="space-y-5">
+      
+      <!-- Email -->
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Email</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="ejemplo@email.com"
+          class="w-full px-4 py-2 bg-[#0b0d0f] border border-gray-700 rounded-lg text-gray-100 placeholder-gray-500 
+                 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition"
+          [class.border-red-500]="loginForm.controls['email'].invalid && loginForm.controls['email'].touched"
+        />
+        <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched">
+          <span id="email-error" class="text-red-500 text-sm">Email inválido</span>
+        </div>
       </div>
-    </div>
 
-    <!-- Campo de Contraseña -->
-    <div class="mb-4">
-      <label for="password" class="block font-medium">Contraseña:</label>
-      <input id="password" type="password" formControlName="password" class="w-full px-4 py-2 border rounded-md"
-        aria-describedby="password-error"
-        [class.invalid]="loginForm.controls['password'].invalid && loginForm.controls['password'].touched" />
-      <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
-        <span id="password-error" class="error text-red-500 text-sm">
-          La contraseña debe tener al menos 6 caracteres
-        </span>
+      <!-- Password -->
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-300 mb-1">Contraseña</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="••••••••"
+          class="w-full px-4 py-2 bg-[#0b0d0f] border border-gray-700 rounded-lg text-gray-100 placeholder-gray-500 
+                 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition"
+          [class.border-red-500]="loginForm.controls['password'].invalid && loginForm.controls['password'].touched"
+        />
+        <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
+          <span id="password-error" class="text-red-500 text-sm">
+            La contraseña debe tener al menos 6 caracteres
+          </span>
+        </div>
       </div>
-    </div>
 
-    <!-- Botón de Envío -->
-    <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-md"
-      [disabled]="loginForm.invalid || isLoading" [attr.aria-busy]="isLoading">
-      <span *ngIf="isLoading">Cargando...</span>
-      <span *ngIf="!isLoading">Iniciar Sesión</span>
-    </button>
+      <!-- Botón (versión sólida) -->
+      <button
+        type="submit"
+        class="w-full bg-teal-500 hover:bg-teal-400 text-black font-semibold rounded-xl px-6 py-3 transition 
+               disabled:opacity-50 disabled:cursor-not-allowed"
+        [disabled]="loginForm.invalid || isLoading"
+        [attr.aria-busy]="isLoading"
+      >
+        <span *ngIf="isLoading">Cargando...</span>
+        <span *ngIf="!isLoading">Iniciar Sesión</span>
+      </button>
 
-    <!-- Mensaje de Error del Servidor -->
-  </form>
+      <!-- Botón (versión con borde, opcional) -->
+      <!--
+      <button
+        type="submit"
+        class="w-full border border-teal-500/60 text-teal-300 hover:bg-teal-500/10 rounded-xl px-6 py-3 transition
+               disabled:opacity-50 disabled:cursor-not-allowed"
+        [disabled]="loginForm.invalid || isLoading"
+        [attr.aria-busy]="isLoading"
+      >
+        <span *ngIf="isLoading">Cargando...</span>
+        <span *ngIf="!isLoading">Iniciar Sesión</span>
+      </button>
+      -->
+    </form>
 
-  <!-- Popup Component -->
-  <app-popup [message]="popupMessage" [show]="showPopup" (closePopup)="closePopup()" aria-live="polite"></app-popup>
+    <!-- Popup -->
+    <app-popup
+      [message]="popupMessage"
+      [show]="showPopup"
+      (closePopup)="closePopup()"
+      aria-live="polite">
+    </app-popup>
+  </div>
 </div>
