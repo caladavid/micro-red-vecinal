@@ -4,7 +4,8 @@ import {
   getReviewById,
   createReview,
   updateReview,
-  deleteReview
+  deleteReview,
+  getReviewsForUser
 } from '../controllers/reviews.controller.js';
 import { protectRoute } from '../middleware/protectRoute.js';
 
@@ -22,7 +23,10 @@ router.post('/', protectRoute, createReview);
 // PUT /api/reviews/:id → actualizar una review (requiere auth)
 router.put('/:id', protectRoute, updateReview);
 
+router.get('/users/:id/reviews', getReviewsForUser);
+
 // DELETE /api/reviews/:id → eliminar una review (requiere auth)
 router.delete('/:id', protectRoute, deleteReview);
+
 
 export default router;

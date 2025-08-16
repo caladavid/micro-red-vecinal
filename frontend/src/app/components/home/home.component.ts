@@ -3,6 +3,7 @@ import { HeroComponent } from '../../shared/hero/hero.component';
 import { CategoriesSectionComponent } from '../../shared/categories-section/categories-section.component';
 import { FeedSectionComponent } from '../../shared/feed-section/feed-section.component';
 import { MapCardComponent } from '../../shared/map/map.component';
+import { TopUsersComponent } from "../top-users/top-users/top-users.component";
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,8 @@ import { MapCardComponent } from '../../shared/map/map.component';
     CategoriesSectionComponent,
     FeedSectionComponent,
     MapCardComponent,
-  ],
+    TopUsersComponent
+],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

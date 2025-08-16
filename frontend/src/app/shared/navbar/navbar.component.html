@@ -16,11 +16,16 @@
     <button class="py-4 px-2 cursor-pointer rounded-md bg-red-600 hover:bg-red-700 text-white" (click)="authService.logout()">
       Cerrar sesión
     </button>
+     @if(user){
+      <a [routerLink]="['/profile/', user._id]" class="p-2 rounded-xl hover:bg-white/5 transition" aria-label="perfil">👤</a>
+     }
 
     } @else {
     <div class="flex items-center gap-3 text-white/80">
-      <button class="p-2 rounded-xl hover:bg-white/5 transition" aria-label="notificaciones">🔔</button>
-      <button class="p-2 rounded-xl hover:bg-white/5 transition" aria-label="perfil">👤</button>
+      <a href="/login">Iniciar sesion</a>
+      <a href="/register">Registrace</a>
+      <!-- <button class="p-2 rounded-xl hover:bg-white/5 transition" aria-label="notificaciones">🔔</button>
+      <button class="p-2 rounded-xl hover:bg-white/5 transition" aria-label="perfil">👤</button> -->
     </div>
     }
   </div>

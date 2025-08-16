@@ -4,6 +4,7 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject, catchError, map, Observable, of, tap, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
+import { Skill } from '../../../lib/models';
 
 export interface User {
   _id: string;
@@ -15,6 +16,8 @@ export interface User {
   location?: string;
   role?: string;
   token?: string;
+  reputation?: number;
+  skills: Skill[];
 }
 
 export interface RegisterData {
@@ -36,8 +39,8 @@ export interface LoginData {
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly API_URL = `/api/auth`;
-  /* private readonly API_URL = `http://localhost:8000/api/auth`; */
+  /* private readonly API_URL = `/api/auth`; */
+  private readonly API_URL = `http://localhost:8000/api/auth`;
   private readonly TOKEN_KEY = 'token';
   private readonly USER_KEY = 'currentUser'
   private currentUserSubject: BehaviorSubject<User | null>;

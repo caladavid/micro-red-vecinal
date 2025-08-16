@@ -1,0 +1,11 @@
+<div class="space-y-3">
+  <div *ngFor="let r of reviews" class="p-3 rounded-xl bg-white/5 border border-white/10">
+    <div class="flex items-center justify-between">
+      <app-rating-stars [value]="r.rating" [readonly]="true"></app-rating-stars>
+      <span class="text-xs text-white/50">{{ r.createdAt | date:'short' }}</span>
+    </div>
+    <p class="text-white/80 mt-2" *ngIf="r.comment">{{ r.comment }}</p>
+  </div>
+
+  <p class="text-white/50" *ngIf="reviews.length === 0">Sin reseñas todavía.</p>
+</div>

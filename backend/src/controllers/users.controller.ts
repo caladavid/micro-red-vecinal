@@ -1,6 +1,7 @@
 import type { NextFunction, Request, Response } from 'express';
 import User from '../models/user.model.js';
 import { customError } from '../utils/customError.js';
+import mongoose from 'mongoose';
 
 export const getUsers = async (req: Request, res: Response) => {
   try {
@@ -52,6 +53,11 @@ export const getUserById = async (req: Request, res: Response) => {
   try {
     // Completar
     const userId = req.params.id;
+
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ error: 'ID de usuario inválido.' });
+    }
+
     const user = await User.findById(userId).select('-password')
 
     if (!user) {
