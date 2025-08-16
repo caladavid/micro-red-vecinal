@@ -96,10 +96,16 @@ export const deleteReview = async (req: Request, res: Response) => {
 export const getReviewsForUser = async (req: Request, res: Response) => {
   try {
     const userId = req.params.id;
-    const reviews = await Review.find({ reviewee: userId });
-    res.status(200).json({ message: 'Reviews obtenidas exitosamente', reviews });
+    const reviews = await Review.find({ reviewee: userId })
+      .populate("reviewer", "name email") // opcional
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({ 
+      message: "Reviews obtenidas exitosamente", 
+      reviews 
+    });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Error al obtener reviews del usuario' });
+    console.error("Error al obtener reviews del usuario:", error);
+    res.status(500).json({ error: "Error al obtener reviews del usuario" });
   }
 };

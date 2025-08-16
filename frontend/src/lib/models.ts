@@ -27,7 +27,12 @@ export interface User {
 
 export interface Review {
   _id?: string;
-  reviewer: string;  // userId
+  reviewer: {
+    _id: string;
+    first_name: string;
+    last_name: string;
+    // opcionalmente username o email
+  };  // userId
   reviewee: string;  // userId
   post?: string;     // postId (opcional)
   rating: number;    // 1..5

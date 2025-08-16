@@ -1,5 +1,5 @@
 import express from "express";
-import { createUser, deleteUser, getAuthenticatedUser, getUserById, getUsers, updateUser } from "../controllers/users.controller.js";
+import { createUser, deleteUser, getAuthenticatedUser, getUserById, getUsers, updateUser, getReviewsForUser, createReviewForUser } from "../controllers/users.controller.js";
 import { protectRoute } from "../middleware/protectRoute.js";
 const router = express.Router();
 router.get('/', getUsers);
@@ -10,5 +10,7 @@ router.post('/', createUser);
 /* router.post('/', protectRoute, createUser); */
 router.put('/:id', updateUser);
 router.delete('/:id', deleteUser);
+router.get('/:id/reviews', getReviewsForUser);
+router.post('/:id/reviews', protectRoute, createReviewForUser);
 export default router;
 //# sourceMappingURL=users.routes.js.map

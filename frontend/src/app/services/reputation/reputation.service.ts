@@ -33,12 +33,24 @@ export class ReputationService {
   listReviewsForUser(userId: string): Observable<Review[]> {
     return this.http
       .get<{ message: string; reviews: Review[] }>(`${this.API_BASE}/users/${userId}/reviews`)
-      .pipe(map(res => res.reviews));
+      .pipe(
+        map(res => res.reviews.map(r => ({
+          ...r,
+          reviewer: r.reviewer as User // forzamos que reviewer es objeto User
+        })))
+      );
   }
 
-  createReview(review: Review): Observable<Review> {
-    return this.http.post<Review>(`${this.API_BASE}/reviews`, review);
+
+  createReview(review: { reviewee: string; rating: number; comment: string; post?: string }): Observable<Review> {
+    // POST al endpoint correcto de usuario
+    return this.http.post<Review>(`${this.API_BASE}/users/${review.reviewee}/reviews`, {
+      rating: review.rating,
+      comment: review.comment,
+      post: review.post || null
+    });
   }
+
 
   // Si el backend expone un endpoint para reputación agregada
   getReputation(userId: string): Observable<{ reputation: number }> {

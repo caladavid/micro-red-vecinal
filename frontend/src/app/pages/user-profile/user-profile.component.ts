@@ -11,6 +11,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { User } from '../../services/auth/auth.service';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Review } from '../../../lib/models';
 
 @Component({
   selector: 'app-user-profile',
@@ -26,6 +27,7 @@ export class UserProfileComponent implements OnInit {
 
   userId!: string;
   user?: User;
+  reviews: Review[] = [];
   isAdmin = false; // simula rol de admin
 
   newSkillName = '';
@@ -38,6 +40,7 @@ export class UserProfileComponent implements OnInit {
     this.userId = this.route.snapshot.paramMap.get('id')!;
     console.log('UserProfileComponent: ngOnInit - userId de la URL:', this.userId); // <-- CLG 1
     this.loadUser();
+    this.loadUserReviews();
   }
 
   loadUser() {
@@ -93,8 +96,30 @@ export class UserProfileComponent implements OnInit {
 
   submitReview() {
     if (this.rating <= 0) return;
-    const reviewerId = 'ME'; // reemplaza con AuthService
-    this.rep.createReview({ reviewer: reviewerId, reviewee: this.userId, rating: this.rating, comment: this.comment })
-      .subscribe(() => { this.rating = 0; this.comment = ''; });
+
+    this.rep.createReview({
+      reviewee: this.userId,
+      rating: this.rating,
+      comment: this.comment
+    }).subscribe({
+      next: () => {
+        // limpiar formulario
+        this.rating = 0;
+        this.comment = '';
+        // recargar la lista de reseñas
+        this.loadUserReviews();
+      },
+      error: (err) => console.error('Error creando review:', err)
+    });
+  }
+
+
+  loadUserReviews() {
+    this.rep.listReviewsForUser(this.userId)
+      .subscribe({
+        next: (reviews) => this.reviews = reviews,
+        error: (err) => console.error('Error cargando reviews', err)
+      });
   }
 }
+

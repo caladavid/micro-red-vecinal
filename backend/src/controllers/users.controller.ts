@@ -2,6 +2,7 @@ import type { NextFunction, Request, Response } from 'express';
 import User from '../models/user.model.js';
 import { customError } from '../utils/customError.js';
 import mongoose from 'mongoose';
+import Review from '../models/review.model.js';
 
 export const getUsers = async (req: Request, res: Response) => {
   try {
@@ -131,5 +132,60 @@ export const deleteUser = async (req: Request, res: Response) => {
   } catch (error) {
     console.error('Error al eliminar el usuario:', error);
     res.status(500).json({ error: 'Error al eliminar el usuario' });
+  }
+};
+
+export const getReviewsForUser = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.id;
+
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ error: 'ID de usuario inválido' });
+    }
+
+    console.log("Buscando reviews para usuario:", userId);
+
+    const reviews = await Review.find({ reviewee: userId }).populate('reviewer', 'first_name last_name').sort({ createdAt: -1 });
+
+    res.status(200).json({
+      message: 'Reviews obtenidas exitosamente',
+      reviews
+    });
+  } catch (error: any) {
+    console.error("Error en getReviewsForUser:", error.message);
+    res.status(500).json({ error: 'Error al obtener reviews del usuario', detail: error.message });
+  }
+};
+
+export const createReviewForUser = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const userId = req.params.id;
+
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ error: 'ID de usuario inválido.' });
+    }
+
+    if (!req.user?._id) {
+      return res.status(401).json({ error: 'Usuario no autenticado.' });
+    }
+
+    const { rating, comment, post } = req.body;
+
+    const newReview = await Review.create({
+      reviewer: req.user._id,
+      reviewee: userId,
+      rating,
+      comment,
+      post
+    });
+
+    res.status(201).json({
+      message: 'Review creada exitosamente',
+      review: newReview
+    });
+
+  } catch (error: any) {
+    console.error('Error creando review para usuario:', error.message, error.stack);
+    res.status(500).json({ error: 'Error al crear review', detail: error.message });
   }
 };

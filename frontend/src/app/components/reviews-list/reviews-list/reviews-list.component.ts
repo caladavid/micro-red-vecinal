@@ -13,7 +13,8 @@ import { CommonModule, NgFor } from '@angular/common';
 
 export class ReviewsListComponent implements OnInit {
   @Input() userId!: string;
-  reviews: Review[] = [];
+  @Input() reviews: Review[] = [];
+  /* reviews: Review[] = []; */
   private rep = inject(ReputationService);
 
   ngOnInit() {
