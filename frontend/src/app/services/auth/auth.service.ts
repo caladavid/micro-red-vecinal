@@ -40,7 +40,7 @@ export interface LoginData {
 })
 export class AuthService {
   /* private readonly API_URL = `/api/auth`; */
-  private readonly API_URL = `http://localhost:8000/api/auth`;
+  private readonly API_URL = `/api/auth`;
   private readonly TOKEN_KEY = 'token';
   private readonly USER_KEY = 'currentUser'
   private currentUserSubject: BehaviorSubject<User | null>;

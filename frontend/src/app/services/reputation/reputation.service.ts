@@ -8,7 +8,7 @@ import { Review } from '../../../lib/models';
 @Injectable({ providedIn: 'root' })
 export class ReputationService {
   private http = inject(HttpClient);
-  private API_BASE = 'http://localhost:8000/api';
+  private API_BASE = '/api';
 
   // ===== Users / Skills =====
   getUserById(userId: string): Observable<User> {

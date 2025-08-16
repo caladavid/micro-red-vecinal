@@ -22,7 +22,7 @@ export class UserProfileComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private http = inject(HttpClient);
   public rep = inject(ReputationService);
-  private apiUrl = 'http://localhost:8000/api';
+  private apiUrl = '/api';
 
   userId!: string;
   user?: User;

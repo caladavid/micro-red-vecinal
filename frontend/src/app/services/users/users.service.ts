@@ -7,7 +7,7 @@ import { User } from '../auth/auth.service';
 @Injectable({ providedIn: 'root' })
 export class UsersService {
   private http = inject(HttpClient);
-  private API_URL = 'http://localhost:8000/api/users';
+  private API_URL = '/api/users';
 
   // Obtiene todos los usuarios
   getAllUsers(): Observable<User[]> {
